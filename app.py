@@ -1,6 +1,7 @@
 from flask import Flask,request,jsonify
 from flask_restful import Api,Resource
 from pymongo import MongoClient
+import json
 
 app=Flask(__name__)
 api=Api(app)
@@ -22,16 +23,7 @@ class Add(Resource):
         status = data["status"]
 
 
-        clouds.insert({
-            "topic" : topic,
-            "category": category,
-            "description": desc,
-            "importance": imp,
-            "subject": subject,
-            "scp": scp,
-            "status": status
-
-        })
+        clouds.insert(data)
 
         ret = {
             "status": 200,
@@ -51,13 +43,13 @@ class Show(Resource):
                 "category": x["category"],
                 "description": x["description"],
                 "importance": x["importance"],
+                "permissions": x["permissions"],
                 "subject": x["subject"],
-                "scp": x["scp"],
+                "csp": x["csp"],
                 "status": x["status"]
 
                 
             })
-
         
 
         return jsonify(data)
