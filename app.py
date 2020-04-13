@@ -29,15 +29,23 @@ class Add(Resource):
 
 class Show(Resource):
     def get(self):
-        data = clouds.find()
-        print(data)
+        datas = clouds.find({})
+        data=[]
 
-        ret = {
-            "status": 200,
-            "msg": "Got from DB"
-        }
+        for x in datas:
+            data.append({
+                "security": x["security"],
+                "topic": x["topic"]
+                
+            })
 
-        return jsonify(ret)
+        
+
+        return jsonify(data)
+
+
+api.add_resource(Add,"/add")
+api.add_resource(Show,"/show")
 
 
 
