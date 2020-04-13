@@ -13,11 +13,24 @@ class Add(Resource):
     def post(self):
         data = request.get_json()
         topic = data["topic"]
-        security = data["security"]
+        
+        subject = data["subject"]
+        desc = data["description"]
+        category = data["category"]
+        imp = data["importance"]
+        scp = data["csp"]
+        status = data["status"]
+
 
         clouds.insert({
             "topic" : topic,
-            "security" : security
+            "category": category,
+            "description": desc,
+            "importance": imp,
+            "subject": subject,
+            "scp": scp,
+            "status": status
+
         })
 
         ret = {
@@ -34,8 +47,14 @@ class Show(Resource):
 
         for x in datas:
             data.append({
-                "security": x["security"],
-                "topic": x["topic"]
+                "topic": x["topic"],
+                "category": x["category"],
+                "description": x["description"],
+                "importance": x["importance"],
+                "subject": x["subject"],
+                "scp": x["scp"],
+                "status": x["status"]
+
                 
             })
 
